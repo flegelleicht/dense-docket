@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_18_183244) do
+ActiveRecord::Schema.define(version: 2018_10_18_184238) do
 
   create_table "dockets", force: :cascade do |t|
     t.date "start"
@@ -20,6 +20,11 @@ ActiveRecord::Schema.define(version: 2018_10_18_183244) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.index ["user_id"], name: "index_dockets_on_user_id"
+  end
+
+  create_table "dockets_plans", id: false, force: :cascade do |t|
+    t.integer "docket_id", null: false
+    t.integer "plan_id", null: false
   end
 
   create_table "events", force: :cascade do |t|
