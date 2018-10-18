@@ -1,0 +1,2 @@
+class DocketsController < ApplicationController
+end
