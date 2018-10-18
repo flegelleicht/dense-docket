@@ -3,6 +3,22 @@
   <%= @plan.title %>
 </p>
 
+<h2>Add an event:</h2>
+<%= form_with model: [@plan, @plan.events.build ], local: true do |form| %>
+  <p>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %><br><br>
+  </p>
+  <p>
+    <%= form.label :start %><br>
+    <%= form.date_field :start %><br><br>
+    <%= form.label :end %><br>
+    <%= form.date_field :end %><br><br>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+
 <%= link_to 'Edit', edit_plan_path(@plan) %>
 <%= link_to 'Back', plans_path %>
-
