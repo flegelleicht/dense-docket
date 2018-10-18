@@ -1,5 +1,3 @@
-<h1>New Docket</h1>
-
 <%= form_with model: @docket, local: true do |form| %>
 
   <% if @docket.errors.any? %>
@@ -16,20 +14,20 @@
     </div>
   <% end %>
   
-  <p>
-    <%= form.label :start %><br>
-    <%= form.date_field :start %><br><br>
+  <div class="form-group">
+    <%= form.label :start %>
+    <%= form.date_field :start, :class => 'form-control', :placeholder => Date.today %>
+  </div>
 
+  <div class="form-group">
     <%= form.label :end %><br>
-    <%= form.date_field :end %><br><br>
-  </p>
+    <%= form.date_field :end, :class => 'form-control', :placeholder => Date.today %>
+  </div>
   
-  <p>
+  <div class="form-group">
     <%= form.label :title %><br>
-    <%= form.text_field :title %>
-  </p>
+    <%= form.text_field :title, :class => 'form-control', :placeholder => 'Exciting!' %>
+  </div>
   
-  <p>
-    <%= form.submit %>
-  </p>
+  <%= form.submit 'Create docket', :class => 'btn btn-primary' %>
 <% end %>
