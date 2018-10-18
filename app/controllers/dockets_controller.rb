@@ -1,22 +1,22 @@
 class DocketsController < ApplicationController
   def index
-    @dockets = Docket.all
+    @dockets = current_user.dockets
   end
   
   def show
-    @docket = Docket.find(params[:id])
+    @docket = current_user.dockets.find(params[:id])
   end
   
   def new
-    @docket = Docket.new
+    @docket = current_user.dockets.create(docket_params)
   end
   
   def edit
-    @docket = Docket.find(params[:id])
+    @docket = current_user.dockets.find(params[:id])
   end
   
   def create
-    @docket = Docket.new(docket_params)
+    @docket = current_user.dockets.create(docket_params)
     if @docket.save
       redirect_to @docket
     else
@@ -25,7 +25,7 @@ class DocketsController < ApplicationController
   end
   
   def update
-    @docket = Docket.find(params[:id])
+    @docket = current_user.dockets.find(params[:id])
     
     if @docket.update(docket_params)
       redirect_to @docket
@@ -35,7 +35,7 @@ class DocketsController < ApplicationController
   end
   
   def destroy
-    @docket = Docket.find(params[:id])
+    @docket = current_user.dockets.find(params[:id])
     @docket.destroy
     
     redirect_to dockets_path
