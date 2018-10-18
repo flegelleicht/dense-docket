@@ -1,6 +1,10 @@
 class Docket < ApplicationRecord
   validates :title, presence: true, length: { minimum: 5 }
   
+  # has_many :plans, through: :dockets_plans
+  has_and_belongs_to_many :plans
+  has_many :events, through: :plans
+  
   def weeks
     Enumerator.new do |e|
       fm = self.first_monday_around
@@ -13,7 +17,6 @@ class Docket < ApplicationRecord
     end
   end
   
-
   def first_monday_around
     self.start - self.start.wday + 1
   end

@@ -1,10 +1,10 @@
 class PlansController < ApplicationController
 	def index
-		@plans = Plan.all
+		@plans = current_user.plans
 	end
 
 	def show
-		@plan = Plan.find(params[:id])
+		@plan = current_user.plans.find(params[:id])
 	end
 
 	def new
@@ -12,11 +12,11 @@ class PlansController < ApplicationController
 	end
 
 	def edit
-		@plan = Plan.find(params[:id])
+		@plan = current_user.plans.find(params[:id])
 	end
 
 	def create
-		@plan = Plan.new(plan_params)
+		@plan = current_user.plans.create(plan_params)
 		if @plan.save
 			redirect_to @plan
 		else
@@ -25,7 +25,7 @@ class PlansController < ApplicationController
 	end
 
 	def update
-		@plan = Plan.find(params[:id])
+		@plan = current_user.plans.find(params[:id])
 		if @plan.update(plan_params)
 			redirect_to @plan
 		else
@@ -34,7 +34,7 @@ class PlansController < ApplicationController
 	end
 
 	def destroy
-		@plan = Plan.find(params[:id])
+		@plan = current_user.plans.find(params[:id])
 		@plan.destroy
 		redirect_to plans_path
 	end

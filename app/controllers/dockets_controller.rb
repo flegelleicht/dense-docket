@@ -26,8 +26,12 @@ class DocketsController < ApplicationController
   
   def update
     @docket = current_user.dockets.find(params[:id])
+
+    parms = docket_params
+    parms['plans'] = parms.to_hash['plans']
+      .map{|id| current_user.plans.find(id.to_i)}
     
-    if @docket.update(docket_params)
+    if @docket.update(parms)
       redirect_to @docket
     else
       render 'edit'
@@ -44,6 +48,6 @@ class DocketsController < ApplicationController
   private
   
   def docket_params
-    params.require(:docket).permit(:title, :start, :end)
+    params.require(:docket).permit(:title, :start, :end, :plans => [])
   end
 end
