@@ -4,3 +4,9 @@
   from <%= event.start %> 
   to <%= event.end %>
 </p>
+
+<p>
+  <%= link_to 'Destroy event', [event.plan, event], 
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %>
+</p>

@@ -5,6 +5,13 @@ class EventsController < ApplicationController
     redirect_to plan_path(@plan)
   end
   
+  def destroy
+    @plan = Plan.find(params[:plan_id])
+    @event = @plan.events.find(params[:id])
+    @event.destroy
+    redirect_to plan_path(@plan)
+  end
+  
   private
   
   def event_params
