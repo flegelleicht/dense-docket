@@ -4,31 +4,10 @@
 </p>
 
 <h2>Events</h2>
-<% @plan.events.each do |event| %>
-  <p>
-    <strong>Title:</strong>
-    <%= event.title %>,
-    from <%= event.start %> 
-    to <%= event.end %>
-  </p>
-<% end %>
+<%= render @plan.events %>
 
 <h2>Add an event:</h2>
-<%= form_with model: [@plan, @plan.events.build ], local: true do |form| %>
-  <p>
-    <%= form.label :title %><br>
-    <%= form.text_field :title %><br><br>
-  </p>
-  <p>
-    <%= form.label :start %><br>
-    <%= form.date_field :start %><br><br>
-    <%= form.label :end %><br>
-    <%= form.date_field :end %><br><br>
-  </p>
-  <p>
-    <%= form.submit %>
-  </p>
-<% end %>
+<%= render 'events/form'%>
 
 <%= link_to 'Edit', edit_plan_path(@plan) %>
 <%= link_to 'Back', plans_path %>
