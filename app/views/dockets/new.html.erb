@@ -1,6 +1,21 @@
 <h1>New Docket</h1>
 
 <%= form_with scope: :docket, url: dockets_path, local: true do |form| %>
+
+  <% if @docket.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@docket.errors.count, "error") %>
+        prohibited this docket from being saved:
+      </h2>
+      <ul>
+        <% @docket.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
   <p>
     <%= form.label :start %><br>
     <%= form.date_field :start %><br><br>

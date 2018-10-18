@@ -8,12 +8,16 @@ class DocketsController < ApplicationController
   end
   
   def new
+    @docket = Docket.new
   end
   
   def create
     @docket = Docket.new(docket_params)
-    @docket.save
-    redirect_to @docket
+    if @docket.save
+      redirect_to @docket
+    else
+      render 'new'
+    end
   end
   
   private
