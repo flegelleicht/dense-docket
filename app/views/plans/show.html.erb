@@ -3,6 +3,16 @@
   <%= @plan.title %>
 </p>
 
+<h2>Events</h2>
+<% @plan.events.each do |event| %>
+  <p>
+    <strong>Title:</strong>
+    <%= event.title %>,
+    from <%= event.start %> 
+    to <%= event.end %>
+  </p>
+<% end %>
+
 <h2>Add an event:</h2>
 <%= form_with model: [@plan, @plan.events.build ], local: true do |form| %>
   <p>
