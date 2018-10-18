@@ -2,13 +2,16 @@
 
 <%= form_with scope: :docket, url: dockets_path, local: true do |form| %>
   <p>
-    <%= form.label :title %><br>
-    <%= form.text_field :title %>
+    <%= form.label :start %><br>
+    <%= form.date_field :start %><br><br>
+
+    <%= form.label :end %><br>
+    <%= form.date_field :end %><br><br>
   </p>
   
   <p>
-    <%= form.label :text %><br>
-    <%= form.text_area :text %>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
   </p>
   
   <p>

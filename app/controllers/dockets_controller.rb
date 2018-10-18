@@ -3,6 +3,14 @@ class DocketsController < ApplicationController
   end
   
   def create
-    render plain: params[:docket].inspect
+    @docket = Docket.new(article_params)
+    @docket.save
+    redirect_to @docket
+  end
+  
+  private
+  
+  def article_params
+    params.require(:article).permit(:title, :text)
   end
 end
