@@ -24,6 +24,19 @@
       <%= form.submit 'Change docket', :class => 'btn btn-primary' %>
     </div>
   </div>
+  
+  <div id="edit-docket-plans" class="form-row form-check">
+    <%= form.fields_for :plans do |pf| %>
+      <% current_user.plans.each do |plan| %>
+      <div class="form-group form-check">
+        <%= check_box_tag "docket[plans][]", plan.id, (@docket.plans.include? plan), :class => "form-check-input", :id => "cb#{plan.id}" %>
+        <%= label_tag "cb#{plan.id}", plan.title, class: "form-check-label" do
+        "#{link_to plan.title, plan_path(plan)}".html_safe
+        end %>
+      </div>
+      <% end %>
+    <% end %>
+  </div>
 <% end %>
 
 
@@ -44,6 +57,8 @@
   </thead>
   <tbody>
     <% first = true %>
+    <% events = @docket.events %>
+        
     <% (@docket.weeks).each do |week|%>
     <tr>
       <th scope="row">
@@ -53,13 +68,26 @@
         <% end %>
       </th>
       <td><%= week.first.strftime('%W') %></td>
-      <td class="<%= 'other' if week[0].month.odd? %>"><%= week[0].strftime('%d') %></td>
-      <td class="<%= 'other' if week[1].month.odd? %>"><%= week[1].strftime('%d') %></td>
-      <td class="<%= 'other' if week[2].month.odd? %>"><%= week[2].strftime('%d') %></td>
-      <td class="<%= 'other' if week[3].month.odd? %>"><%= week[3].strftime('%d') %></td>
-      <td class="<%= 'other' if week[4].month.odd? %>"><%= week[4].strftime('%d') %></td>
-      <td class="<%= 'other' if week[5].month.odd? %>"><%= week[5].strftime('%d') %></td>
-      <td class="<%= 'other' if week[6].month.odd? %>"><%= week[6].strftime('%d') %></td>
+      <% week.each do |day| %>
+        <% if events.any?{|e| e.is_on? day }%>
+          <% events_for_the_day = events.find_all{|e| e.is_on? day} %>
+          <td 
+            class="<%= 'other' if day.month.odd? %> has-event">
+            <a 
+              tabindex="0"
+              role="button"
+              data-toggle="popover"
+              data-trigger="focus"
+              title="Events on this day"
+              data-placement="top"
+              data-content="<%= events_for_the_day.map{|e| e.title}.join(', ')%>">
+            <%= day.strftime('%d') %></td>
+        <% else %>
+          <td 
+            class="<%= 'other' if day.month.odd? %>">
+            <%= day.strftime('%d') %></td>
+        <% end %>
+      <% end %>
     </tr>
     <% end %>
   </tbody>
