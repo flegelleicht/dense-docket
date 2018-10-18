@@ -58,9 +58,7 @@
   <tbody>
     <% first = true %>
     <% events = @docket.events %>
-    
-    <p><%= events.count %>: <%= events.map{|e| e.end}.join(', ')%></p>
-    
+        
     <% (@docket.weeks).each do |week|%>
     <tr>
       <th scope="row">
