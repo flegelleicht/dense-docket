@@ -3,5 +3,7 @@ Rails.application.routes.draw do
   root 'visitors#index'
   
   resources :dockets
-  resources :plans
+  resources :plans do
+    resources :events
+  end
 end
