@@ -1,0 +1,19 @@
+<h1>All dockets</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Start</th>
+    <th>End</th>
+    <th></th>
+  </tr>
+  
+  <% @dockets.each do |docket| %>
+    <tr>
+      <td><%= docket.title %></td>
+      <td><%= docket.start %></td>
+      <td><%= docket.end %></td>
+      <td><%= link_to 'Show', docket_path(docket) %></td>
+    </tr>
+  <% end %>
+</table>

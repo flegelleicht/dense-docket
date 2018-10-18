@@ -1,4 +1,8 @@
 class DocketsController < ApplicationController
+  def index
+    @dockets = Docket.all
+  end
+  
   def show
     @docket = Docket.find(params[:id])
   end
