@@ -1,0 +1,2 @@
+class Docket < ApplicationRecord
+end
