@@ -24,6 +24,17 @@
       <%= form.submit 'Change docket', :class => 'btn btn-primary' %>
     </div>
   </div>
+  
+  <div id="edit-docket-plans" class="form-row form-check">
+    <%= form.fields_for :plans do |pf| %>
+      <% current_user.plans.each do |plan| %>
+      <div class="form-group form-check">
+        <%= check_box_tag "docket[plans][]", plan.id, (@docket.plans.include? plan), :class => "form-check-input", :id => "cb#{plan.id}" %>
+        <%= label_tag "cb#{plan.id}", plan.title, class: "form-check-label" %>
+      </div>
+      <% end %>
+    <% end %>
+  </div>
 <% end %>
 
 
