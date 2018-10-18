@@ -11,12 +11,26 @@ class DocketsController < ApplicationController
     @docket = Docket.new
   end
   
+  def edit
+    @docket = Docket.find(params[:id])
+  end
+  
   def create
     @docket = Docket.new(docket_params)
     if @docket.save
       redirect_to @docket
     else
       render 'new'
+    end
+  end
+  
+  def update
+    @docket = Docket.find(params[:id])
+    
+    if @docket.update(docket_params)
+      redirect_to @docket
+    else
+      render 'edit'
     end
   end
   
