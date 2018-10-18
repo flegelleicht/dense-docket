@@ -34,6 +34,13 @@ class DocketsController < ApplicationController
     end
   end
   
+  def destroy
+    @docket = Docket.find(params[:id])
+    @docket.destroy
+    
+    redirect_to dockets_path
+  end
+  
   private
   
   def docket_params
