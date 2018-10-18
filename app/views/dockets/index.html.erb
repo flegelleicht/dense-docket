@@ -1,0 +1,24 @@
+<h1>All dockets</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Start</th>
+    <th>End</th>
+    <th colspan="3"></th>
+  </tr>
+  
+  <% @dockets.each do |docket| %>
+    <tr>
+      <td><%= docket.title %></td>
+      <td><%= docket.start %></td>
+      <td><%= docket.end %></td>
+      <td><%= link_to 'Show', docket_path(docket) %></td>
+      <td><%= link_to 'Edit', edit_docket_path(docket) %></td>
+      <td><%= link_to 'Destroy', 
+                      docket_path(docket), 
+                      method: :delete, 
+                      data: { confirm: 'Are you sure?'} %></td>
+    </tr>
+  <% end %>
+</table>
