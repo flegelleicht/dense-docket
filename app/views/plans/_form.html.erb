@@ -1,0 +1,28 @@
+<h1>New plan</h1>
+
+<%= form_with model: @plan, local: true do |form| %>
+
+  <% if @plan.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@plan.errors.count, "error") %>
+        prohibited this plan from being saved:
+      </h2>
+      <ul>
+        <% @plan.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <p>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+  </p>
+  
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+
