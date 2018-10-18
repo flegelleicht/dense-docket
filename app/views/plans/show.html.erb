@@ -1,0 +1,13 @@
+<p>
+  <strong>Title:</strong>
+  <%= @plan.title %>
+</p>
+
+<h2>Events</h2>
+<%= render @plan.events %>
+
+<h2>Add an event:</h2>
+<%= render 'events/form'%>
+
+<%= link_to 'Edit', edit_plan_path(@plan) %>
+<%= link_to 'Back', plans_path %>

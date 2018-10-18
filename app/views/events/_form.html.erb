@@ -1,0 +1,15 @@
+<%= form_with model: [@plan, @plan.events.build ], local: true do |form| %>
+  <p>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %><br><br>
+  </p>
+  <p>
+    <%= form.label :start %><br>
+    <%= form.date_field :start %><br><br>
+    <%= form.label :end %><br>
+    <%= form.date_field :end %><br><br>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
