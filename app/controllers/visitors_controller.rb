@@ -1,5 +1,4 @@
 class VisitorsController < ApplicationController
-  def new
-    @event = Event.new
+  def index
   end
 end
