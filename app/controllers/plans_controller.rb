@@ -8,7 +8,7 @@ class PlansController < ApplicationController
 	end
 
 	def new
-		@plan = current_user.plans.create
+		@plan = Plan.new
 	end
 
 	def edit
