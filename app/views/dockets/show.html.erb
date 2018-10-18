@@ -1,17 +1,66 @@
-<p>
-  <strong>Title:</strong>
-  <%= @docket.title %>
-</p>
+<%= form_with model: @docket, local: true do |form| %>
+  <% if @docket.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@docket.errors.count, "error") %>
+        prohibited this docket from being saved:
+      </h2>
+      <ul>
+        <% @docket.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div id="edit-docket" class="form-row">
+    <div class="col-4">
+      <%= form.date_field :start, :class => 'form-control', :value => @docket.start %>
+    </div>
+    <div class="col-4">
+      <%= form.date_field :end, :class => 'form-control', :placeholder => @docket.end %>
+    </div>
+    <div class="col-auto">
+      <%= form.submit 'Change docket', :class => 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>
 
-<p>
-  <strong>Start:</strong>
-  <%= @docket.start %>
-</p>
 
-<p>
-  <strong>End:</strong>
-  <%= @docket.end %>
-</p>
 
-<%= link_to 'Edit', edit_docket_path(@docket) %>
-<%= link_to 'Back', dockets_path %>
+<table class="table">  
+  <thead>
+    <tr>
+      <th scope="col">Month</th>
+      <th scope="col">W</th>
+      <th scope="col">Mo</th>
+      <th scope="col">Tu</th>
+      <th scope="col">We</th>
+      <th scope="col">Th</th>
+      <th scope="col">Fr</th>
+      <th scope="col">Sa</th>
+      <th scope="col">Su</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% first = true %>
+    <% (@docket.weeks).each do |week|%>
+    <tr>
+      <th scope="row">
+        <% if first or week.first.month != week.last.month %>
+          <%= week.last.strftime('%B')%>
+          <% first = false %>
+        <% end %>
+      </th>
+      <td><%= week.first.strftime('%W') %></td>
+      <td class="<%= 'other' if week[0].month.odd? %>"><%= week[0].strftime('%d') %></td>
+      <td class="<%= 'other' if week[1].month.odd? %>"><%= week[1].strftime('%d') %></td>
+      <td class="<%= 'other' if week[2].month.odd? %>"><%= week[2].strftime('%d') %></td>
+      <td class="<%= 'other' if week[3].month.odd? %>"><%= week[3].strftime('%d') %></td>
+      <td class="<%= 'other' if week[4].month.odd? %>"><%= week[4].strftime('%d') %></td>
+      <td class="<%= 'other' if week[5].month.odd? %>"><%= week[5].strftime('%d') %></td>
+      <td class="<%= 'other' if week[6].month.odd? %>"><%= week[6].strftime('%d') %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
