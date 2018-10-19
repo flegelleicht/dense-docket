@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_18_184238) do
+ActiveRecord::Schema.define(version: 2018_10_19_085154) do
 
   create_table "dockets", force: :cascade do |t|
     t.date "start"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2018_10_18_184238) do
     t.integer "plan_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "lead_days", default: 0
     t.index ["plan_id"], name: "index_events_on_plan_id"
   end
 

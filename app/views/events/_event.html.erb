@@ -2,6 +2,7 @@
       <td><%= event.title %></td>
       <td><%= event.start %></td>
       <td><%= event.end %></td>
+      <td><%= event.lead_days%></td>
       <td><%= link_to 'Remove', [event.plan, event], 
               method: :delete,
               data: { confirm: 'Are you sure?' } %></td>
