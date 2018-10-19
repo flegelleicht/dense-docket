@@ -30,15 +30,17 @@
           <li class="nav-item active">
             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
           </li>
-          <% current_user.dockets.sort{|a,b| a.updated_at <=> b.updated_at}.reverse.take(3).each do |docket| %>
-            <li class="nav-item">
-              <%= link_to docket.title, docket_path(docket), :class => 'nav-link' %>
-            </li>
-          <% end %>
-          <% current_user.plans.sort{|a,b| a.updated_at <=> b.updated_at}.reverse.take(3).each do |plan| %>
-            <li class="nav-item">
-              <%= link_to plan.title, plan_path(plan), :class => 'nav-link' %>
-            </li>
+          <% if user_signed_in? %>
+            <% current_user.dockets.sort{|a,b| a.updated_at <=> b.updated_at}.reverse.take(3).each do |docket| %>
+              <li class="nav-item">
+                <%= link_to docket.title, docket_path(docket), :class => 'nav-link' %>
+              </li>
+            <% end %>
+            <% current_user.plans.sort{|a,b| a.updated_at <=> b.updated_at}.reverse.take(3).each do |plan| %>
+              <li class="nav-item">
+                <%= link_to plan.title, plan_path(plan), :class => 'nav-link' %>
+              </li>
+            <% end %>
           <% end %>
           <li class="nav-item dropdown">
             <a href="#"
