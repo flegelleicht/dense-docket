@@ -8,7 +8,7 @@ class DocketsController < ApplicationController
   end
   
   def new
-    @docket = current_user.dockets.create(docket_params)
+    @docket = Docket.new
   end
   
   def edit
@@ -29,7 +29,7 @@ class DocketsController < ApplicationController
 
     parms = docket_params
     parms['plans'] = parms.to_hash['plans']
-      .map{|id| current_user.plans.find(id.to_i)}
+      .map{|id| current_user.plans.find(id.to_i)} if parms.to_hash['plans']
     
     if @docket.update(parms)
       redirect_to @docket
