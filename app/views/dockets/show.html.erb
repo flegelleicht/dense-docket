@@ -1,3 +1,4 @@
+<% colors = %w(#C03FB0 #FF7453 #41C677 #D5F751 #D463C6 #FF9177 #65D894 #EAFCA2) %>
 <%= form_with model: @docket, local: true do |form| %>
   <% if @docket.errors.any? %>
     <div id="error_explanation">
@@ -30,7 +31,7 @@
       <% current_user.plans.each do |plan| %>
       <div class="form-group form-check">
         <%= check_box_tag "docket[plans][]", plan.id, (@docket.plans.include? plan), :class => "form-check-input", :id => "cb#{plan.id}" %>
-        <%= label_tag "cb#{plan.id}", plan.title, class: "form-check-label" do
+        <%= label_tag "cb#{plan.id}", plan.title, class: "form-check-label", style: "padding:0.2em 0.75em;border-radius:10%;background-color:#{colors[plan.hash % colors.count]}"  do
         "#{link_to plan.title, plan_path(plan)}".html_safe
         end %>
       </div>
@@ -71,11 +72,18 @@
       <% week.each do |day| %>
         <% if events.any?{|e| e.is_on? day }%>
           <% events_for_the_day = events.find_all{|e| e.is_on? day} %>
-          <% colors = %w(#C03FB0 #FF7453 #41C677 #D5F751 #D463C6 #FF9177 #65D894 #EAFCA2) %>
           <td class="<%= 'other' if day.month.odd? %> has-event">
             <div style="position:relative;top:-0.75em;left:-0.75em;width:calc(100% + 1.5em);height:0;overflow:visible;z-index:1">
             <% events_for_the_day.each_with_index do |e, idx|%>
-              <div style="width:100%;height:5px;background-color:<%= colors[idx]%>">&nbsp;</div>
+              <% anchor_date_end   = e.end || e.start %>
+              <div style="display:none">
+                <%= anchor_date_end %><br>
+                <%= (anchor_date_end - day).to_i %>
+                <%= if e.lead_days && e.lead_days != 0 then (e.lead_days - (anchor_date_end - day)) / e.lead_days end %>
+              </div>
+              <% pressure = if e.lead_days && e.lead_days != 0 then (e.lead_days.to_f - (anchor_date_end - day)) / e.lead_days.to_f else 1.0 end %>
+              <% pressure = (pressure * 15).to_i %>
+              <div style="width:100%;height:<%= if pressure == 0 then 1 else pressure end %>px;background-color:<%= colors[e.plan.hash % colors.count]%>;padding-bottom:1px;border-bottom:1px solid white;box-sizing:content-box;">&nbsp;</div>
             <% end %>
             </div>
             <a 
