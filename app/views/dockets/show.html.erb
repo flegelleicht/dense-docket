@@ -25,7 +25,7 @@
     </div>
   </div>
   
-  <div id="edit-docket-plans" class="form-row form-check">
+  <div id="edit-docket-plans" class="form-row form-check form-check-inline">
     <%= form.fields_for :plans do |pf| %>
       <% current_user.plans.each do |plan| %>
       <div class="form-group form-check">
