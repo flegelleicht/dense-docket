@@ -73,9 +73,9 @@
           <% events_for_the_day = events.find_all{|e| e.is_on? day} %>
           <% colors = %w(#C03FB0 #FF7453 #41C677 #D5F751 #D463C6 #FF9177 #65D894 #EAFCA2) %>
           <td class="<%= 'other' if day.month.odd? %> has-event">
-            <div style="position:relative;top:-0.75em;left:-0.75em;width:calc(100% + 1.5em);height:0;overflow:visible">
+            <div style="position:relative;top:-0.75em;left:-0.75em;width:calc(100% + 1.5em);height:0;overflow:visible;z-index:1">
             <% events_for_the_day.each_with_index do |e, idx|%>
-              <div style="width:100%;height:3px;background-color:<%= colors[idx]%>">&nbsp;</div>
+              <div style="width:100%;height:5px;background-color:<%= colors[idx]%>">&nbsp;</div>
             <% end %>
             </div>
             <a 
@@ -85,7 +85,9 @@
               data-trigger="focus"
               title="Events on this day"
               data-placement="top"
-              data-content="<%= events_for_the_day.map{|e| e.title}.join(', ')%>">
+              data-content="<%= events_for_the_day.map{|e| "#{e.plan.title}: #{e.title}"}.join(', ')%>"
+              style="position:relative;z-index:2;"
+              >
             <%= day.strftime('%d') %></td>
         <% else %>
           <td 
