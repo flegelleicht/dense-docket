@@ -1,15 +1,40 @@
-<%= form_with model: [@plan, @plan.events.build ], local: true do |form| %>
-  <p>
-    <%= form.label :title %><br>
-    <%= form.text_field :title %><br><br>
-  </p>
-  <p>
-    <%= form.label :start %><br>
-    <%= form.date_field :start %><br><br>
-    <%= form.label :end %><br>
-    <%= form.date_field :end %><br><br>
-  </p>
-  <p>
-    <%= form.submit %>
-  </p>
+<%= form_with model: [@plan, @plan.events.build ], class: 'container', local: true do |form| %>
+  <div class="form-group">
+      <div class="form-group form-row align-items-baseline">
+      <%= form.label :title, class: 'col-sm-3' %>
+      <%= form.text_field :title, 
+          class: 'form-control col-sm-9' ,
+          placeholder: 'Title'
+      %>
+      </div>
+      
+      <div class="form-group form-row align-items-baseline">
+      <%= form.label :start, class: 'col-sm-3' %>
+      <%= form.date_field :start, 
+          class: 'form-control col-sm-9',
+          value: Date.today
+      %>
+      </div>
+
+      <div class="form-group form-row align-items-baseline">
+      <%= form.label :end, class: 'col-sm-3' %>
+      <%= form.date_field :end, 
+          class: 'form-control col-sm-9',
+          value: Date.today
+      %>
+      </div>
+      
+      <div class="form-group form-row align-items-baseline">
+        <%= form.label :lead, 'Show', class: 'col-sm-3' %>
+        <%= form.number_field :lead, 
+            class: 'col-sm-2',
+            value: 0
+        %>
+        <div class="col-sm-7">days before</div>
+      </div>
+      
+      <div class='form-row text-right'>
+      <%= form.submit 'Add', class: 'btn btn-primary form-control col-sm-3 offset-sm-9' %>
+      </div>
+  </div>
 <% end %>

@@ -1,6 +1,53 @@
-<h1>Hello</h1>
-<%= link_to 'My dockets', controller: 'dockets' %>
-<%= link_to 'New docket', new_docket_path %>
-<%= link_to 'My plans', controller: 'plans' %>
-<%= link_to 'New plan', new_plan_path %>
+<h1>Welcome</h1>
 
+<h2>Dockets</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Start</th>
+      <th scope="col">End</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+<% current_user.dockets.each do |docket| %>
+  <tr>
+    <td><%= link_to docket.title, docket_path(docket) %></td>
+    <td><%= docket.start %></td>
+    <td><%= docket.end %></td>
+    <td><%= link_to 'Remove', 
+                    docket_path(docket), 
+                    method: :delete, 
+                    data: { confirm: 'Are you sure?'} %></td>
+  </tr>
+<% end %>
+  <tr>
+    <td colspan="4"><%= link_to 'Create docket', new_docket_path %></td>
+  </tbody>
+</table>
+
+<h2>Plans</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col"># Events</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+<% current_user.plans.each do |plan| %>
+  <tr>
+    <td><%= link_to plan.title, edit_plan_path(plan) %></td>
+    <td><%= link_to plan.events.count, plan_path(plan) %></td>
+    <td><%= link_to 'Remove', 
+                    plan_path(plan), 
+                    method: :delete, 
+                    data: { confirm: 'Are you sure?'} %></td>
+  </tr>
+<% end %>
+  <tr>
+    <td colspan="3"><%= link_to 'Create plan', new_plan_path %></td>
+  </tbody>
+</table>
