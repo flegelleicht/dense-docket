@@ -33,7 +33,7 @@
       <div class="form-group form-check">
         <%= check_box_tag "docket[plans][]", plan.id, (@docket.plans.include? plan), :class => "form-check-input", :id => "cb#{plan.id}" %>
         <%= label_tag "cb#{plan.id}", plan.title, class: "form-check-label", style: "padding:0.2em 0.75em;border-radius:10%;background-color:#{colors[plan.hash % colors.count]}"  do
-        "#{link_to plan.title, plan_path(plan)}".html_safe
+        "#{link_to plan.title, plan_path(plan), style: 'color:white'}".html_safe
         end %>
       </div>
       <% end %>
@@ -95,7 +95,7 @@
               title="Events on this day"
               data-placement="top"
               data-content="<%= events_for_the_day.map{|e| "#{e.plan.title}: #{e.title}"}.join(', ')%>"
-              style="position:relative;z-index:2;"
+              style="position:relative;z-index:2;text-shadow:1px 1px 1px white, -1px 1px 1px white, 1px -1px 1px white, -1px -1px 1px white;"
               >
             <%= day.strftime('%d') %></td>
         <% else %>
