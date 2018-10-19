@@ -33,15 +33,14 @@
     <tr>
       <th scope="col">Name</th>
       <th scope="col"># Events</th>
-      <th scope="col" colspan="2"></th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
 <% current_user.plans.each do |plan| %>
   <tr>
-    <td><%= plan.title %></td>
+    <td><%= link_to plan.title, edit_plan_path(plan) %></td>
     <td><%= link_to plan.events.count, plan_path(plan) %></td>
-    <td><%= link_to 'Edit', edit_plan_path(plan) %></td>
     <td><%= link_to 'Remove', 
                     plan_path(plan), 
                     method: :delete, 
@@ -49,6 +48,6 @@
   </tr>
 <% end %>
   <tr>
-    <td colspan="4"><%= link_to 'Create plan', new_plan_path %></td>
+    <td colspan="3"><%= link_to 'Create plan', new_plan_path %></td>
   </tbody>
 </table>
