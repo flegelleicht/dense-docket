@@ -1,5 +1,5 @@
     <tr>
-      <td><%= event.title %></td>
+      <td><%= link_to event.title,  "/plans/#{event.plan.id}/events/#{event.id}/edit" %></td>
       <td><%= event.start %></td>
       <td><%= event.end %></td>
       <td><%= event.lead_days%></td>

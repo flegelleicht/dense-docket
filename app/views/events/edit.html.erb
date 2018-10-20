@@ -1,0 +1,48 @@
+<h1><%= @event.title %></h1>
+
+<%= form_tag "/plans/#{@event.plan.id}/events/#{@event.id}", method: 'PATCH', local: true do |form| %>
+
+    <div class="form-group">
+      <label for="event-title">Title</label>
+      <input id="event-title"
+        name="event[title]"
+        class="form-control"
+        placeholder="New title" 
+        value = "<%= @event.title %>"
+      >
+    </div>
+    
+    <div class="form-group">
+      <label for="event-start">Start</label>
+      <input type="date" 
+        id="event-start"
+        name="event[start]"
+        class="form-control" 
+        placeholder="<%= Date.today %>" 
+        value="<%= @event.start %>"
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="event-end">End</label>
+      <input type="date" 
+        id="event-end"
+        name="event[end]"
+        class="form-control" 
+        placeholder="<%= Date.today %>" 
+        value="<%= @event.end %>"
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="event-lead">Lead</label>
+      <input type="number" 
+        id="event-lead"
+        name="event[lead_days]"
+        class="form-control" 
+        placeholder="0" 
+        value="<%= @event.lead_days %>"
+      >
+    </div>
+    <input type="submit" value="Save">
+<% end %>
