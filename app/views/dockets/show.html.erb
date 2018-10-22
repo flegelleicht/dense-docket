@@ -71,9 +71,10 @@
       </th>
       <td><%= week.first.strftime('%W') %></td>
       <% week.each do |day| %>
+        <% today_class = if day == Date.today then 'today' else '' end %>
         <% if events.any?{|e| e.is_on? day }%>
           <% events_for_the_day = events.find_all{|e| e.is_on? day} %>
-          <td class="<%= 'other' if day.month.odd? %> has-event">
+          <td class="<%= 'other' if day.month.odd? %> <%= today_class %> has-event">
             <div style="position:relative;top:-0.75em;left:-0.75em;width:calc(100% + 1.5em);height:0;overflow:visible;z-index:1">
             <% events_for_the_day.each_with_index do |e, idx|%>
               <% anchor_date_end   = e.end || e.start %>
@@ -97,11 +98,11 @@
               data-content="<%= events_for_the_day.map{|e| "#{e.plan.title}: #{e.title}"}.join(', ')%>"
               style="position:relative;z-index:2;text-shadow:1px 1px 1px white, -1px 1px 1px white, 1px -1px 1px white, -1px -1px 1px white;"
               >
-            <%= day.strftime('%d') %></td>
+            <span class="<%= today_class %>"><%= day.strftime('%d') %></span></td>
         <% else %>
           <td 
-            class="<%= 'other' if day.month.odd? %>">
-            <%= day.strftime('%d') %></td>
+            class="<%= today_class %> <%= 'other' if day.month.odd? %>">
+            <span class="<%= today_class %>"><%= day.strftime('%d') %></span></td>
         <% end %>
       <% end %>
     </tr>
